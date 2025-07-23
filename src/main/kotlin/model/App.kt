@@ -2,8 +2,6 @@ package FirstTask.model
 
 import org.jetbrains.exposed.sql.*
 fun main() {
-
-
         val taskId = Employees.insert {
             it[name] = "aarav"
             it[designation] = "intern"

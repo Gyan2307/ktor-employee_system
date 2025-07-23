@@ -63,6 +63,16 @@ class DbInterface {
         }
         return emp
     }
+    fun addEmployee(emp: Employee): Int{
+        var id = -1
+        transaction {
+            id = Employees.insert {
+                it[name] = emp.name
+                it[designation] = emp.designation
+            } get Employees.id
+        }
+        return id
+    }
 //    fun allEmployees(): List<Employee> = employees
 
 //    fun employeesByName(name: String) = employees.filter {

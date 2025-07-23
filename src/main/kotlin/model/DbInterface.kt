@@ -44,18 +44,22 @@ class DbInterface {
     fun employeesByName(name: String): Employee? {
         var emp: Employee? = null
         transaction {
-            Employees.select {
-                (Employees.name eq name)
-            }
+            Employees.select {(Employees.name eq name)}
+                .limit(1)
+                .map{
+                    emp = Employee(it[Employees.id],it[Employees.name], it[Employees.designation])
+                }
         }
         return emp
     }
     fun employeesById(id: Int): Employee? {
         var emp: Employee? = null
         transaction {
-            Employees.select {
-                (Employees.id eq id)
-            }
+            Employees.select {(Employees.id eq id)}
+                .limit(1)
+                .map{
+                    emp = Employee(it[Employees.id],it[Employees.name], it[Employees.designation])
+                }
         }
         return emp
     }

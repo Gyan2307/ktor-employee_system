@@ -3,13 +3,24 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class DbInterface {
-    fun initDb(){
-        Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver").also {
-            transaction(it) {
-                SchemaUtils.create(Employees)
+    fun initDb() {
+        Database.connect(
+            "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;",
+            driver = "org.h2.Driver",
+            user = "sa",
+            password = ""
+        )
+
+        transaction {
+            SchemaUtils.create(Employees)
+            Employees.insert {
+                it[name] = "Jane Dev"
+                it[designation] = "Developer"
             }
+            println("✅ Initialized shared in-memory H2 DB")
         }
     }
+
     fun allEmployees(): List<Employee>{
         var empList = mutableListOf<Employee>()
         transaction {

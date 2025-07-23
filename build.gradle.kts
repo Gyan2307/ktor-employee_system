@@ -14,6 +14,9 @@ application {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repos.spring.io/plugins-release")
+    }
 }
 
 dependencies {
@@ -25,7 +28,7 @@ dependencies {
     implementation(libs.logback.classic)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
-    implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.core)
     implementation("com.h2database:h2:2.2.224")
 }

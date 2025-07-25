@@ -19,6 +19,8 @@ repositories {
     }
 }
 
+
+
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.host.common)
@@ -28,7 +30,11 @@ dependencies {
     implementation(libs.logback.classic)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
-    implementation(libs.exposed.jdbc)
-    implementation(libs.exposed.core)
     implementation("com.h2database:h2:2.2.224")
+    implementation("org.jetbrains.exposed:exposed-dao:0.44.0")
+    implementation("org.jetbrains.exposed:exposed-core:0.44.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.44.0")
+    implementation("org.postgresql:postgresql:42.7.4")
+    implementation("io.ktor:ktor-server-core:2.3.5")
+    implementation("io.ktor:ktor-server-netty:2.3.5")
 }

@@ -5,9 +5,12 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class DbInterface {
     fun initDb() {
         Database.connect(
-            "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;",
-            driver = "org.h2.Driver",
-            user = "sa",
+//            "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;", //this was for h2 connection
+//            driver = "org.h2.Driver",
+//            user = "sa",
+//            password = ""
+            url = "jdbc:postgresql://localhost:5432/my_database",
+            user = "postgres",
             password = ""
         )
 

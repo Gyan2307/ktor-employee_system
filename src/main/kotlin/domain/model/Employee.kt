@@ -1,4 +1,4 @@
-package FirstTask.model
+package FirstTask.domain.model
 
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table

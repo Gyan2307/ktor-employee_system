@@ -4,8 +4,9 @@
 
 package FirstTask.presentation
 
-import FirstTask.model.DbInterface
-import FirstTask.model.Employee
+import FirstTask.Application.EmployeeService
+import FirstTask.infrastructure.persistence.DbInterface
+import FirstTask.domain.model.Employee
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
@@ -14,14 +15,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.SerializationException
 
-fun Application.configureRouting(dbInterface: DbInterface) {
+fun Application.configureRouting(employeeService: EmployeeService) {
     routing {
         staticResources("/static", "static")
 
         route("/employees") {
 //            call.respond( //respond is part of server-side app, extension func of applicationcall which is used to send HTTP response to the client, call- represents a single request response within the server
             get {
-                val employees = dbInterface.allEmployees()
+                val employees = employeeService.allEmployees()
                 call.respond(employees)
             }
             get("/byID/{id}") {
@@ -30,7 +31,7 @@ fun Application.configureRouting(dbInterface: DbInterface) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
-                val emp = dbInterface.employeesById(id.toInt())
+                val emp = employeeService.employeeSearchByID(id.toInt())
                 if (emp == null) {
                     call.respond(HttpStatusCode.NotFound)
                     return@get
@@ -43,7 +44,7 @@ fun Application.configureRouting(dbInterface: DbInterface) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
-                val emp = dbInterface.employeesByName(name)
+                val emp = employeeService.employeeSearchByName(name)
                 if (emp == null) {
                     call.respond(HttpStatusCode.NotFound)
                     return@get
@@ -53,7 +54,7 @@ fun Application.configureRouting(dbInterface: DbInterface) {
             post{
                 try{
                     val emp = call.receive<Employee>()
-                    dbInterface.addEmployee(emp)
+                    employeeService.employeeJoining(emp)
                     call.respond(HttpStatusCode.Created)
                 } catch (ex: IllegalStateException){
                     call.respond(HttpStatusCode.BadRequest)
@@ -71,11 +72,11 @@ fun Application.configureRouting(dbInterface: DbInterface) {
                 if(id.toInt() != update.id){
                     call.respond(HttpStatusCode.BadRequest)
                 }
-                if(dbInterface.employeesById(id.toInt()) != null){
-                    dbInterface.updateEmployee(update)
+                if(employeeService.employeeSearchByID(id.toInt()) != null){
+                    employeeService.employeeEdit(update)
                     call.respond(HttpStatusCode.Created)
                 } else try{
-                    dbInterface.addEmployee(update)
+                    employeeService.employeeJoining(update)
                 } catch (ex: IllegalStateException){
                     call.respond(HttpStatusCode.BadRequest)
                 } catch (ex: SerializationException){

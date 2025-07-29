@@ -1,6 +1,6 @@
 package FirstTask.Application
 
-import FirstTask.domain.model.Employees
+import FirstTask.domain.model.Employee
 import FirstTask.domain.port.EmployeeRepository
 
 class EmployeeService(private val employeeRepository: EmployeeRepository) {

@@ -1,6 +1,7 @@
 package FirstTask
 
-import FirstTask.model.DbInterface
+import FirstTask.infrastructure.persistence.DbInterface
+import FirstTask.infrastructure.persistence.configureSerialization
 import FirstTask.presentation.configureRouting
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -18,5 +19,6 @@ fun Application.module() {
 
     val db = DbInterface()
     db.initDb()
-    configureRouting(db)
+    val employeeService = FirstTask.Application.EmployeeService(db)
+    configureRouting(employeeService)
 }

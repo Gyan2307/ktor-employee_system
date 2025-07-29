@@ -9,11 +9,3 @@ data class Employee (
     val name: String,
     val designation: String
 )
-
-const val MAX_VARCHAR_LENGTH = 128
-
-object Employees : Table("employee") {
-    val id = integer("id").autoIncrement()
-    val name = varchar("name", MAX_VARCHAR_LENGTH)
-    val designation = varchar("designation", MAX_VARCHAR_LENGTH)
-}

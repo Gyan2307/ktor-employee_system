@@ -1,12 +1,14 @@
-package FirstTask
+//this is the presentation layer of the application, it handles the HTTP requests and responses
+// it is responsible for routing the requests to the appropriate handlers and sending the responses back to the client
+// it uses the DbInterface to interact with the database and perform CRUD operations on the Employee
+
+package FirstTask.presentation
 
 import FirstTask.model.DbInterface
 import FirstTask.model.Employee
 import io.ktor.http.HttpStatusCode
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.receive
 import io.ktor.server.response.*
 import io.ktor.server.routing.*

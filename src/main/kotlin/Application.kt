@@ -1,6 +1,7 @@
 package FirstTask
 
 import FirstTask.model.DbInterface
+import FirstTask.presentation.configureRouting
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
